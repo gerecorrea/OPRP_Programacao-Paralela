@@ -1,0 +1,34 @@
+------------------------------------ CABEÇALHO ----------------------------------------:
+Autor: Geremias Corrêa
+README da atividade 3_1 - Multiplicação de matrizes por MPI
+Disciplina: OPRP
+Professor: Maurício Pillon
+Para dar os devidos créditos, a conclusão desse trabalho contou com ajuda da aluna Beatriz.
+
+------------------------------------ PARA EXECUÇÃO ------------------------------------:
+
+Para limpeza dos arquivos:
+$make clean
+
+Para compilação do código:
+$make
+
+Para geração das matrizes em .map desejadas:
+$./gera_matrizv3 <num_linhas> <num_colunas>
+
+Para execução comum:
+$mpirun -np <nro_threads> ./mainMPI <matrizA> <matrizB>
+
+Para execução na plataforma física disponível da disciplina com uso do hostfile:
+$mpirun -np <nro_threads> --hostfile hostfile ./mainMPI <matrizA> <matrizB>
+
+Repare que uma matriz pode ter os seguintes formatos, dado este exemplo de uma matriz 100x100:
+<mat_a100x100.example> ou <100x100-mat.map>, este segundo gerado pela execução de "$./gera_matrizv3 100"
+
+------------------------------  OBSERVAÇÕES  -----------------------------------------:   
+
+O número de cortes inciais na matriz está em 2, assim como o corte vertical para a matriz A.
+    Tais parâmetros podem ser modificados no arquivo mainMPI.c
+
+
+    

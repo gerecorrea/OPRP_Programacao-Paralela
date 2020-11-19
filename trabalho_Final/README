@@ -1,0 +1,48 @@
+--------------------------------------------------------------------------
+
+Dupla: Beatriz M. Reichert e Geremias Correa
+Trabalho Final de Programação Paralela
+Professor: Maurício A. Pillon
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+                            Passo a Passo
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Recomendo que primeiro limpe todos os arquivos gerados anteriormente:
+    $make clean
+
+Em seguida, compile o arquivo:
+    $make
+
+Agora faça:
+    $./main <nro_linhas_matriz> <nro_cavalos> <nro_threads>
+
+Sendo que:
+<nro_linhas_matriz> é o número de linhas e colunas que terá a matriz, ela será quadrada.
+<nro_cavalos> é a quantidade de cavalos que serão colocados na matriz.
+<nro_threads> é o número de threads/processadores especificados para utilização.
+
+Para retorno dos tempos utilizando o gprof faça:
+$ gprof -a main
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+                            Observações
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Foram realizadas algumas otimizações na parte primária do trabalho, cujo em execução sequencial retorna o resultado corretamente
+    Na segunda parte, foi buscado então o trecho de paralelizar a execução via threads, como uso de mutexes, barreiras e travamento das threads.
+
+Os resultados retornados na forma de paralelização não estão ok, retorna resultados válidos somente com uma thread ativada, não se encaixando como requisito da entrega oficial.
+
+Ainda sim, foi optado pela entrega por questão de responsabilidade e de oficialização, mas sabemos dos problemas do código.
+    Foi realizado tudo em um único código (main.cpp) e também a montagem da compilação via makefile e este README.
+
+A saída em tela é somente da disposição resumida dos cavalos e damas, como requisitados. O tempo pode ser avaliado através de execução com o uso do gprof.
+
+A realização optada de log de melhor execução foi a de entrada 300 150 1, ou seja, uma matriz 300x300, com 150 cavalos e 1 thread. O tempo de execução do gprof foi de 16,81 segundos.
+    Ressaltamos que foi realizado o log de um resultado válido do nosso código, que seria com uma única thread. Mais que isso, apesar de retornar um resultado com a quantidade correta de rainhas, estas estão dispostas em posições erradas na matriz, apesar da disposição correta dos cavalos.
+    O teste foi realizado na máquina ens1, pois a ens4, plataforma original para os testes, estava fora do ar.

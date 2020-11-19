@@ -1,1 +1,1 @@
-# Programacao-Paralela
+# OPRP

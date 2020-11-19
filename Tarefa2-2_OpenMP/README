@@ -1,0 +1,61 @@
+------------------------------------ CABEÇALHO ----------------------------------------:
+Autor: Geremias Corrêa
+README da atividade 2_2 - Multiplicação de matrizes por OpenMP
+Disciplina: OPRP
+Professor: Maurício Pillon
+
+------------------------------------ PARA EXECUÇÃO ------------------------------------:
+Para compilar todos os scripts, faça:
+$ make all 
+
+Nosso main para utilizar o OpenMP será o arquivo mainOpenMP.c
+    Existe também um arquivo reserva, mainReserva_OpenMP, este obtém melhores tempos no OpenMP e speed-up, porém considerei que não está correto, por isso preferi deixar o correto com tempos ruins
+        Mas caso queira testá-lo também, manda bala, os tempos supostamente estão melhores.
+    Além disso, está inserido o arquivo main_thread.c, que foi o criado na atividade passada, caso seja necessário para algum tipo de comparação.
+
+Após isso, selecione o arquivo executável mainOpenMP, seguido das duas matrizes de entrada e a quantidade de threads. Abaixo exemplos:
+$ ./mainOpenMP mat_a4x4.example mat_b4x4.example 3
+$ ./mainOpenMP mat_a6x6.example mat_b6x6.example 4
+$ ./mainOpenMP mat_a3x4.example mat_b4x3.example 2
+Obs: na minha máquina, testando o uso dos núcleos, ele não usam perfeitamente simultaneamente os processadores pelo OpenMP, diferente de por threads, por conta disso os tempos são meio prejudicados.
+    Deixei uma foto em anexo, onde cada cor representa um dos 4 núcleos de processamento, sendo o eixo X o tempo (em segundos) e o Y o uso de processamento, que mostram isso.
+
+Caso seja desejado entrar com uma outra matriz, com uma criada pelo gmat, basta fazê-lo (ou editar algum feito). 
+    Exemplo de execução pelo gmat para gerar uma matriz 1000x1000 aleatória:
+    $ ./gmat 1000 1000
+    Obs: a execução de uma matriz 1000x1000 demora certo tempo de execução, enquanto a 100x100 é rápida. Abaixo deixo os da minha máquina para auxílio e noção do quanto esperar.
+        Tempo esperado para 100x100 na minha máq: menos de um segundo.
+        Tempo esperado para 1000x1000: Em torno de 3 a 4 minutos.
+        
+Para limpar todos os arquivos gerados, basta fazer:
+$ make clean
+---------------------------------------------------------------------------------------
+ 
+------------------------  OBSERVAÇÕES IMPORTANTES -------------------------------------:   
+
+    São realizadas as multiplicações sequenciais e por OpenMP neste código, tanto normais quanto em bloco
+        Elas retornam o resultado correto e antes de imprimir os tempos são impressas cada uma das matrizes (posição 0) e se são iguais umas com as outras.
+            É possível verificar o resultado pelos arquivos gerados também!
+
+    Reparei também que está dando seg fault raramente, geralmente após um número não detemrinado de execuções, geralmente com um make clean e novo make all resolver   
+        Também procurei entender e resolver, mas também não encontrei explicações para tal. Devo estar cometendo algum erro no gerenciamento das posições dessas matrizes, mas não encontrei.
+
+    Inicialmente os tempos retornados por OpenMp eram muito estranhos (coisa que não havia acontecido anteriormente), vezes retornando valores muito baixo e outras muito alto (mas que na prática não fazem sentido, dado o tempo de execução)
+        Fiz testes dos locais onde colocar, o atua (e mais lógica) foi mesmo o final, ficando estranho para matrizes pequenas, mas com mais sentido para grandes, as quais serão usadas para os testes.
+        Ainda tem-se que os speed-ups ficaram mesmo bem baixos em relaçao a quantidade de threads, assim como então os tempos ddo OpenMP ficaram atltos
+            Como já mencionado, ao arrumar para o correto isso ocorreu, antes usando a diretriz for os tempos eram melhores, porém acredito que estava errada a implementação.
+                Optei então demonstrar os resultados do que estava aparentemente correto (ou mais correto, posso ter interpretado errado outras coisas)
+
+    No arquivo final mainOpenMP tentei fazr aplicando a diretriz for para que separasse já corretamente todas as threads, porém obtive problemas e optei por eu mesmo fazer essa separação
+        Além de diversos outros problemas com as diretrizes e cláusulas da biblioteca, o que me limitou um pouco em fazer o processo mais manual ou que não permitiu explorá-la tanto.
+
+    SOBRE AS FUNÇÕES E VARIÁVEIS PARA OS BLOCOS E COMO TUDO ESTÁ DISPOSTO NO CÓDIGO:
+        Diferentemente do template professor, eu fiz uma função, em matriz-operacoesv3.c, que efetuar toda a divisão em submatrizes e realiza o calculo internamente
+            Por conta disso o main para a parte em blocos (tanto pra OpenMP quanto para sequencial) são pequenos. Mas basta verificar a função.
+                Os valores setados de corte também estão lá.
+        No main para as operações em bloco apenas chamo uma função em matriz-operacoev3.c na qual executo tudo para realizar as operações submatrizes
+        Número de divisões dos blocos são atribuídos no main.c, inicialmente com 3 divisões/particionamentos.
+        A orientação do corte deve ser editado nas funções internas dos blocos, as quais estão contidas na matriz-operacoesv3.c
+        O loop, como indicado pelo professor, está estado como variável global de tamanho 2. Caso seja desejado, pode ser modificado então no início do main
+
+----------------------------------------------------------------------------------------

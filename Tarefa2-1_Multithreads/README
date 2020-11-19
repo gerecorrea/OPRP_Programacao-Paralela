@@ -1,0 +1,28 @@
+------------------------------------ CABEÇALHO ----------------------------------------:
+De Geremias Corrêa
+README da atividade 3 - Matriz Multithread
+Disciplina: OPRP
+Professor: Maurício Pillon
+
+------------------------------------ PARA EXECUÇÃO ------------------------------------:
+Para compilar todos os scripts, faça:
+$ make all 
+
+Após isso, selecione o arquivo executável main_thrad, seguido das duas matrizes de entrada e a quantidade de threads. Abaixo exemplos:
+$ ./main_thread mat_a4x4.example mat_b4x4.example 3
+$ ./main_thread mat_a6x6.example mat_b6x6.example 5
+$ ./maint_thread mat_a3x4.example mat_b4x3.example 2
+
+Caso seja desejado entrar com uma outra matriz, basta criar (ou editar) um novo arquivo do 
+tipo .example usando o padrão dos outros exemplos existentes na pasta.
+
+Para limpar todos os arquivos gerados, basta fazer:
+$ make clean
+ 
+Obs:   
+    No main para as operações em bloco apenas chamo uma função em matriz-operacoev3.c na qual executo tudo para realizar as operações submatrizes
+    Número de divisões dos blocos: editar no início do main.c
+    A orientação do corte deve ser editado nas funções internas dos blocos, as quais estão contidas na matriz-operacoesv3.c
+    O loop, como indicado pelo professor, está estado como variável global de tamanho 2. Caso seja desejado, pode ser modificado então no início do main
+
+----------------------------------------------------------------------------------------
